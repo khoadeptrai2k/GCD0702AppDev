@@ -52,5 +52,21 @@ namespace GCD0702AppDev.Controllers
 
 			return RedirectToAction("Index");
 		}
+
+		[HttpGet]
+		public ActionResult Delete(int id)
+		{
+			var productInDb = _context.Products.SingleOrDefault(p => p.Id == id);
+
+			if (productInDb == null)
+			{
+				return HttpNotFound();
+			}
+
+			_context.Products.Remove(productInDb);
+			_context.SaveChanges();
+
+			return RedirectToAction("Index");
+		}
 	}
 }
