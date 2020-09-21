@@ -30,6 +30,17 @@ namespace GCD0702AppDev.Controllers
 		[HttpPost]
 		public ActionResult Create(Product product)
 		{
+			if (!ModelState.IsValid)
+			{
+				return View();
+			}
+
+			if (_context.Products.Any(p => p.Name.Contains(product.Name)))
+			{
+				ModelState.AddModelError("Name", "Product Name Already Exists.");
+				return View();
+			}
+
 			var newProduct = new Product
 			{
 				Name = product.Name,
