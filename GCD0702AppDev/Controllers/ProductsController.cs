@@ -68,5 +68,40 @@ namespace GCD0702AppDev.Controllers
 
 			return RedirectToAction("Index");
 		}
+
+		[HttpGet]
+		public ActionResult Edit(int id)
+		{
+			var productInDb = _context.Products.SingleOrDefault(p => p.Id == id);
+
+			if (productInDb == null)
+			{
+				return HttpNotFound();
+			}
+
+			return View(productInDb);
+		}
+
+		[HttpPost]
+		public ActionResult Edit(Product product)
+		{
+			if (!ModelState.IsValid)
+			{
+				return View();
+			}
+
+			var productInDb = _context.Products.SingleOrDefault(p => p.Id == product.Id);
+
+			if (productInDb == null)
+			{
+				return HttpNotFound();
+			}
+
+			productInDb.Name = product.Name;
+			productInDb.Price = product.Price;
+			_context.SaveChanges();
+
+			return RedirectToAction("Index");
+		}
 	}
 }
