@@ -1,0 +1,15 @@
+﻿@model GCD0702AppDev.Models.Product
+@{
+	ViewBag.Title = "Create";
+}
+
+<h2>Create a new Product</h2>
+
+@using (Html.BeginForm("Create", "Products", FormMethod.Post))
+{
+	@Html.DisplayNameFor(p => p.Name)
+	@Html.TextBoxFor(p => p.Name, new { @class = "form-control" })
+	@Html.DisplayNameFor(p => p.Price)
+	@Html.TextBoxFor(p => p.Price, new { @class = "form-control" })
+	<button type="submit" class="btn btn-primary">Create</button>
+}
