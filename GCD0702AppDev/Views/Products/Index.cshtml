@@ -1,0 +1,22 @@
+﻿@model IEnumerable<GCD0702AppDev.Models.Product>
+@{
+	ViewBag.Title = "Index";
+}
+
+<h2>Index Products</h2>
+
+<table class="table table-striped">
+	<tr>
+		<th>Id</th>
+		<th>Product Name</th>
+		<th>Product Price</th>
+	</tr>
+	@foreach (var product in Model)
+	{
+		<tr>
+			<td>@product.Id</td>
+			<td>@product.Name</td>
+			<td>@product.Price</td>
+		</tr>
+	}
+</table>
