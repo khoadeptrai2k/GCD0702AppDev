@@ -14,5 +14,7 @@ namespace GCD0702AppDev.Models
 		[Required]
 		[DisplayName("Product Price")]
 		public double Price { get; set; }
+		public int CategoryId { get; set; }
+		public Category Category { get; set; }
 	}
 }

@@ -11,6 +11,7 @@ namespace GCD0702AppDev.Models
 		}
 
 		public DbSet<Product> Products { get; set; }
+		public DbSet<Category> Categories { get; set; }
 
 		public static ApplicationDbContext Create()
 		{

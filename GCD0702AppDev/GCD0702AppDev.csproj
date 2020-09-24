@@ -182,6 +182,10 @@
     <Compile Include="Migrations\202009210101574_AddProductTable.Designer.cs">
       <DependentUpon>202009210101574_AddProductTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009240050330_AddCatergoryIdToProductTable.cs" />
+    <Compile Include="Migrations\202009240050330_AddCatergoryIdToProductTable.Designer.cs">
+      <DependentUpon>202009240050330_AddCatergoryIdToProductTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -274,6 +278,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009210101574_AddProductTable.resx">
       <DependentUpon>202009210101574_AddProductTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009240050330_AddCatergoryIdToProductTable.resx">
+      <DependentUpon>202009240050330_AddCatergoryIdToProductTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
