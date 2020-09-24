@@ -1,4 +1,5 @@
 ﻿using GCD0702AppDev.Models;
+using GCD0702AppDev.ViewModels;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
@@ -27,7 +28,11 @@ namespace GCD0702AppDev.Controllers
 		[HttpGet]
 		public ActionResult Create()
 		{
-			return View();
+			var viewModel = new ProductCategoryViewModel
+			{
+				Categories = _context.Categories.ToList()
+			};
+			return View(viewModel);
 		}
 
 		[HttpPost]
@@ -47,7 +52,8 @@ namespace GCD0702AppDev.Controllers
 			var newProduct = new Product
 			{
 				Name = product.Name,
-				Price = product.Price
+				Price = product.Price,
+				CategoryId = product.CategoryId
 			};
 
 			_context.Products.Add(newProduct);
@@ -82,7 +88,13 @@ namespace GCD0702AppDev.Controllers
 				return HttpNotFound();
 			}
 
-			return View(productInDb);
+			var viewModel = new ProductCategoryViewModel
+			{
+				Product = productInDb,
+				Categories = _context.Categories.ToList()
+			};
+
+			return View(viewModel);
 		}
 
 		[HttpPost]
@@ -102,6 +114,7 @@ namespace GCD0702AppDev.Controllers
 
 			productInDb.Name = product.Name;
 			productInDb.Price = product.Price;
+			productInDb.CategoryId = product.CategoryId;
 			_context.SaveChanges();
 
 			return RedirectToAction("Index");
