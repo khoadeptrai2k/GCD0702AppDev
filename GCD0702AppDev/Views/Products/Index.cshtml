@@ -12,6 +12,7 @@
 		<th>Id</th>
 		<th>Product Name</th>
 		<th>Product Price</th>
+		<th>Category</th>
 		<th>Delete</th>
 		<th>Edit</th>
 	</tr>
@@ -21,6 +22,7 @@
 			<td>@product.Id</td>
 			<td>@product.Name</td>
 			<td>@product.Price</td>
+			<td>@product.Category.Name</td>
 			<td>@Html.ActionLink("Delete this product", "Delete", new { id = product.Id })</td>
 			<td>@Html.ActionLink("Edit this product", "Edit", new { id = product.Id })</td>
 		</tr>

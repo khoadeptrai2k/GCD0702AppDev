@@ -1,4 +1,5 @@
 ﻿using GCD0702AppDev.Models;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -17,7 +18,9 @@ namespace GCD0702AppDev.Controllers
 		[HttpGet]
 		public ActionResult Index()
 		{
-			var products = _context.Products.ToList();
+			var products = _context.Products
+				.Include(p => p.Category)
+				.ToList();
 			return View(products);
 		}
 
