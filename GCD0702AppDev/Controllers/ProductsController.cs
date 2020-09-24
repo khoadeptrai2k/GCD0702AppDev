@@ -1,5 +1,6 @@
 ﻿using GCD0702AppDev.Models;
 using GCD0702AppDev.ViewModels;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
@@ -17,12 +18,19 @@ namespace GCD0702AppDev.Controllers
 
 		// GET: Products
 		[HttpGet]
-		public ActionResult Index()
+		public ActionResult Index(string? searchString)
 		{
 			var products = _context.Products
-				.Include(p => p.Category)
-				.ToList();
-			return View(products);
+			.Include(p => p.Category);
+
+			if (!String.IsNullOrEmpty(searchString))
+			{
+				products = products.Where(
+					s => s.Name.Contains(searchString) ||
+					s.Category.Name.Contains(searchString));
+			}
+
+			return View(products.ToList());
 		}
 
 		[HttpGet]

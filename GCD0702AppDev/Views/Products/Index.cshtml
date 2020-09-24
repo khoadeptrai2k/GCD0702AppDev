@@ -1,30 +1,38 @@
 ﻿@model IEnumerable<GCD0702AppDev.Models.Product>
 @{
-	ViewBag.Title = "Index";
+  ViewBag.Title = "Index";
 }
 
 <h2>Index Products</h2>
 
 @Html.ActionLink("Create a new Product", "Create")
 
+@using (Html.BeginForm("Index", "Products", FormMethod.Get))
+{
+  <p>
+    Find by name: @Html.TextBox("SearchString")
+    <input type="submit" value="Search" />
+  </p>
+}
+
 <table class="table table-striped">
-	<tr>
-		<th>Id</th>
-		<th>Product Name</th>
-		<th>Product Price</th>
-		<th>Category</th>
-		<th>Delete</th>
-		<th>Edit</th>
-	</tr>
-	@foreach (var product in Model)
-	{
-		<tr>
-			<td>@product.Id</td>
-			<td>@product.Name</td>
-			<td>@product.Price</td>
-			<td>@product.Category.Name</td>
-			<td>@Html.ActionLink("Delete this product", "Delete", new { id = product.Id })</td>
-			<td>@Html.ActionLink("Edit this product", "Edit", new { id = product.Id })</td>
-		</tr>
-	}
+  <tr>
+    <th>Id</th>
+    <th>Product Name</th>
+    <th>Product Price</th>
+    <th>Category</th>
+    <th>Delete</th>
+    <th>Edit</th>
+  </tr>
+  @foreach (var product in Model)
+  {
+    <tr>
+      <td>@product.Id</td>
+      <td>@product.Name</td>
+      <td>@product.Price</td>
+      <td>@product.Category.Name</td>
+      <td>@Html.ActionLink("Delete this product", "Delete", new { id = product.Id })</td>
+      <td>@Html.ActionLink("Edit this product", "Edit", new { id = product.Id })</td>
+    </tr>
+  }
 </table>
