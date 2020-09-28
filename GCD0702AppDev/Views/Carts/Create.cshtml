@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GCD0702AppDev.Models.Product>
+﻿@model GCD0702AppDev.ViewModels.CartViewModel
 @{
     ViewBag.Title = "Create";
 }
@@ -8,7 +8,14 @@
 @using (Html.BeginForm("Create", "Carts", FormMethod.Post))
 {
   <div class="form-group">
-    
+    @Html.LabelFor(c => c.Product.Name)    
+    @Html.DropDownListFor(c => c.Product.Id
+      ,new SelectList(Model.Products, "Id", "Name"),
+      "Select Product",
+      new {@class="form-control"}
+    )
   </div>
+    <button type="submit" class="btn btn-primary">Add to Cart</button>
+
 }
 

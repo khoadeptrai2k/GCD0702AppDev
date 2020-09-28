@@ -1,4 +1,5 @@
 ﻿using GCD0702AppDev.Models;
+using GCD0702AppDev.ViewModels;
 using Microsoft.AspNet.Identity;
 using System.Data.Entity;
 using System.Linq;
@@ -28,8 +29,13 @@ namespace GCD0702AppDev.Controllers
 		[HttpGet]
 		public ActionResult Create()
 		{
-			var products = _context.Products.ToList();
-			return View(products);
+			var viewModel = new CartViewModel
+			{
+				Products = _context.Products.ToList()
+			};
+
+
+			return View(viewModel);
 		}
 
 		[Authorize(Roles = "guest")]
@@ -44,7 +50,7 @@ namespace GCD0702AppDev.Controllers
 
 			_context.Carts.Add(cart);
 			_context.SaveChanges();
-			return View();
+			return RedirectToAction("Mine");
 		}
 
 		[HttpGet]
