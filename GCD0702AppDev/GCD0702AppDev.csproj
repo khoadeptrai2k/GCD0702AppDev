@@ -170,6 +170,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CartsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
@@ -188,10 +189,15 @@
     <Compile Include="Migrations\202009240050330_AddCatergoryIdToProductTable.Designer.cs">
       <DependentUpon>202009240050330_AddCatergoryIdToProductTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202009280137428_AddCartsToDb.cs" />
+    <Compile Include="Migrations\202009280137428_AddCartsToDb.Designer.cs">
+      <DependentUpon>202009280137428_AddCartsToDb.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationUser.cs" />
+    <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Product.cs" />
@@ -258,6 +264,9 @@
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Products\Create.cshtml" />
     <Content Include="Views\Products\Edit.cshtml" />
+    <Content Include="Views\Carts\Mine.cshtml" />
+    <Content Include="Views\Carts\Index.cshtml" />
+    <Content Include="Views\Carts\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -284,6 +293,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202009240050330_AddCatergoryIdToProductTable.resx">
       <DependentUpon>202009240050330_AddCatergoryIdToProductTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202009280137428_AddCartsToDb.resx">
+      <DependentUpon>202009280137428_AddCartsToDb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
