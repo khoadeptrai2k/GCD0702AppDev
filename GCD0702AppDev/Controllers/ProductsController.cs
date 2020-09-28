@@ -34,6 +34,7 @@ namespace GCD0702AppDev.Controllers
 		}
 
 		[HttpGet]
+		[Authorize(Roles = "admin")]
 		public ActionResult Create()
 		{
 			var viewModel = new ProductCategoryViewModel
@@ -44,6 +45,8 @@ namespace GCD0702AppDev.Controllers
 		}
 
 		[HttpPost]
+		[Authorize(Roles = "admin")]
+
 		public ActionResult Create(Product product)
 		{
 			if (!ModelState.IsValid)
@@ -71,6 +74,8 @@ namespace GCD0702AppDev.Controllers
 		}
 
 		[HttpGet]
+		[Authorize(Roles = "admin")]
+
 		public ActionResult Delete(int id)
 		{
 			var productInDb = _context.Products.SingleOrDefault(p => p.Id == id);
@@ -87,6 +92,8 @@ namespace GCD0702AppDev.Controllers
 		}
 
 		[HttpGet]
+		[Authorize(Roles = "admin")]
+
 		public ActionResult Edit(int id)
 		{
 			var productInDb = _context.Products.SingleOrDefault(p => p.Id == id);
@@ -106,6 +113,8 @@ namespace GCD0702AppDev.Controllers
 		}
 
 		[HttpPost]
+		[Authorize(Roles = "admin")]
+
 		public ActionResult Edit(Product product)
 		{
 			if (!ModelState.IsValid)

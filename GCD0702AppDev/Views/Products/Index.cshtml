@@ -5,7 +5,10 @@
 
 <h2>Index Products</h2>
 
-@Html.ActionLink("Create a new Product", "Create")
+@if (User.IsInRole("admin") && Request.IsAuthenticated)
+{
+  @Html.ActionLink("Create a new Product", "Create")
+}
 
 @using (Html.BeginForm("Index", "Products", FormMethod.Get))
 {
@@ -21,8 +24,11 @@
     <th>Product Name</th>
     <th>Product Price</th>
     <th>Category</th>
+    @if (User.IsInRole("admin"))
+		{
     <th>Delete</th>
     <th>Edit</th>
+		}
   </tr>
   @foreach (var product in Model)
   {
@@ -31,8 +37,11 @@
       <td>@product.Name</td>
       <td>@product.Price</td>
       <td>@product.Category.Name</td>
+      @if (User.IsInRole("admin") && Request.IsAuthenticated)
+			{
       <td>@Html.ActionLink("Delete this product", "Delete", new { id = product.Id })</td>
       <td>@Html.ActionLink("Edit this product", "Edit", new { id = product.Id })</td>
+			}
     </tr>
   }
 </table>
