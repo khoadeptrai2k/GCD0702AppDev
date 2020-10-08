@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<GCD0702AppDev.Models.Cart>
 @{
-    ViewBag.Title = "Mine";
+		ViewBag.Title = "Mine";
 }
 
 <h2>Mine</h2>
@@ -8,16 +8,16 @@
 @Html.ActionLink("Create a new Cart", "Create")
 
 <table class="table table-striped">
-  <tr>
-    <th>Cart Id</th>
-    <th>Product Name</th>
-  </tr>
-  @foreach (var item in Model)
+	<tr>
+		<th>Cart Id</th>
+		<th>Product Name</th>
+	</tr>
+	@foreach (var item in Model)
 	{
-    <tr>
-      <th>@item.Id</th>
-      <th>@item.Product.Name</th>
-    </tr>
+		<tr>
+			<th>@item.Id</th>
+			<th>@item.Product.Name</th>
+		</tr>
 	}
-  </table>
+	</table>
 

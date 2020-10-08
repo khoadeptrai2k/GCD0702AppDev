@@ -46,7 +46,7 @@ namespace GCD0702AppDev.Controllers
 
 		[HttpPost]
 		[Authorize(Roles = "admin")]
-
+		[ValidateAntiForgeryToken]
 		public ActionResult Create(Product product)
 		{
 			if (!ModelState.IsValid)
