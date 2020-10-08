@@ -64,9 +64,9 @@ namespace GCD0702AppDev.Controllers.Api
 		[HttpPost]
 		public IHttpActionResult Create(Product product)
 		{
-			var doesProductExist = _context.Products.Any(p => p.Name.Contains(product.Name));
+			var isProductNameExsists = _context.Products.Any(p => p.Name.Contains(product.Name));
 
-			if (doesProductExist)
+			if (isProductNameExsists)
 				return BadRequest();
 
 			var categoryInDb = _context.Categories.SingleOrDefault(c => c.Id == product.CategoryId);
@@ -90,6 +90,27 @@ namespace GCD0702AppDev.Controllers.Api
 		[HttpPut]
 		public IHttpActionResult EditById(int id, Product product)
 		{
+			var productInDb = _context.Products.SingleOrDefault(p => p.Id == id);
+
+			if (productInDb == null)
+				return NotFound();
+
+			var categoryInDb = _context.Categories.SingleOrDefault(c => c.Id == product.CategoryId);
+
+			if (categoryInDb == null)
+				return BadRequest();
+
+			var isProductNameExsists = _context.Products.Any(p => p.Name.Contains(product.Name));
+
+			if (isProductNameExsists)
+				return BadRequest();
+
+			productInDb.Name = product.Name;
+			productInDb.Price = product.Price;
+			productInDb.CategoryId = product.CategoryId;
+
+			_context.SaveChanges();
+
 			return StatusCode(HttpStatusCode.NoContent);
 		}
 	}
