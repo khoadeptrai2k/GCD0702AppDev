@@ -103,7 +103,10 @@ namespace GCD0702AppDev.Controllers.Api
 			var isProductNameExsists = _context.Products.Any(p => p.Name.Contains(product.Name));
 
 			if (isProductNameExsists)
-				return BadRequest();
+			{
+				if (productInDb.Name != product.Name)
+					return BadRequest();
+			}
 
 			productInDb.Name = product.Name;
 			productInDb.Price = product.Price;

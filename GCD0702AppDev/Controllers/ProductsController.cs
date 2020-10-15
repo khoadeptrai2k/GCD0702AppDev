@@ -1,7 +1,7 @@
 ﻿using GCD0702AppDev.Models;
+using GCD0702AppDev.Repositories.Interface;
 using GCD0702AppDev.ViewModels;
 using System;
-using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -10,24 +10,23 @@ namespace GCD0702AppDev.Controllers
 	public class ProductsController : Controller
 	{
 		private ApplicationDbContext _context;
+		private IProductRepository _repos;
 
-		public ProductsController()
+		public ProductsController(IProductRepository repos)
 		{
 			_context = new ApplicationDbContext();
+			_repos = repos;
 		}
 
 		// GET: Products
 		[HttpGet]
 		public ActionResult Index(string? searchString)
 		{
-			var products = _context.Products
-			.Include(p => p.Category);
+			var products = _repos.GetAllProducts();
 
 			if (!String.IsNullOrEmpty(searchString))
 			{
-				products = products.Where(
-					s => s.Name.Contains(searchString) ||
-					s.Category.Name.Contains(searchString));
+				products = _repos.GetAllProductsWithSearchString(searchString);
 			}
 
 			return View(products.ToList());

@@ -22,6 +22,7 @@ namespace GCD0702AppDev.Controllers
 				.Include(s => s.Customer)
 				.Include(s => s.Product)
 				.ToList();
+
 			return View(carts);
 		}
 
