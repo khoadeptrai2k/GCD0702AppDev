@@ -22,12 +22,29 @@ namespace GCD0702AppDev.Repositories
 
 		public bool DeleteProductById(int id)
 		{
-			throw new NotImplementedException();
+			var productInDb = GetProductById(id);
+
+			if (productInDb == null) return false;
+
+			_context.Products.Remove(productInDb);
+			_context.SaveChanges();
+
+			return true;
 		}
 
-		public bool EditProductById(int id, Product product)
+		public bool EditProduct(Product product)
 		{
-			throw new NotImplementedException();
+			var productInDb = GetProductById(product.Id);
+
+			if (productInDb == null) return false;
+
+			productInDb.Name = product.Name;
+			productInDb.Price = product.Price;
+			productInDb.CategoryId = product.CategoryId;
+
+			_context.SaveChanges();
+
+			return true;
 		}
 
 		public IEnumerable<Product> GetAllProducts()
@@ -42,6 +59,11 @@ namespace GCD0702AppDev.Repositories
 			return products.Where(
 					s => s.Name.Contains(searchString) ||
 					s.Category.Name.Contains(searchString));
+		}
+
+		public Product GetProductById(int id)
+		{
+			return _context.Products.SingleOrDefault(p => p.Id == id);
 		}
 	}
 }

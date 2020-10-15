@@ -10,26 +10,24 @@ namespace GCD0702AppDev.Controllers
 	public class ProductsController : Controller
 	{
 		private ApplicationDbContext _context;
-		private IProductRepository _repos;
+		private IProductRepository _productRepos;
 
-		public ProductsController(IProductRepository repos)
+		public ProductsController(IProductRepository productRepos)
 		{
 			_context = new ApplicationDbContext();
-			_repos = repos;
+			_productRepos = productRepos;
 		}
 
 		// GET: Products
 		[HttpGet]
 		public ActionResult Index(string? searchString)
 		{
-			var products = _repos.GetAllProducts();
-
 			if (!String.IsNullOrEmpty(searchString))
 			{
-				products = _repos.GetAllProductsWithSearchString(searchString);
+				return View(_productRepos.GetAllProductsWithSearchString(searchString).ToList());
 			}
 
-			return View(products.ToList());
+			return View(_productRepos.GetAllProducts().ToList());
 		}
 
 		[HttpGet]
@@ -77,25 +75,19 @@ namespace GCD0702AppDev.Controllers
 
 		public ActionResult Delete(int id)
 		{
-			var productInDb = _context.Products.SingleOrDefault(p => p.Id == id);
-
-			if (productInDb == null)
+			if (!_productRepos.DeleteProductById(id))
 			{
 				return HttpNotFound();
 			}
-
-			_context.Products.Remove(productInDb);
-			_context.SaveChanges();
 
 			return RedirectToAction("Index");
 		}
 
 		[HttpGet]
 		[Authorize(Roles = "admin")]
-
 		public ActionResult Edit(int id)
 		{
-			var productInDb = _context.Products.SingleOrDefault(p => p.Id == id);
+			var productInDb = _productRepos.GetProductById(id);
 
 			if (productInDb == null)
 			{
@@ -113,7 +105,6 @@ namespace GCD0702AppDev.Controllers
 
 		[HttpPost]
 		[Authorize(Roles = "admin")]
-
 		public ActionResult Edit(Product product)
 		{
 			if (!ModelState.IsValid)
@@ -121,17 +112,10 @@ namespace GCD0702AppDev.Controllers
 				return View();
 			}
 
-			var productInDb = _context.Products.SingleOrDefault(p => p.Id == product.Id);
-
-			if (productInDb == null)
+			if (!_productRepos.EditProduct(product))
 			{
 				return HttpNotFound();
 			}
-
-			productInDb.Name = product.Name;
-			productInDb.Price = product.Price;
-			productInDb.CategoryId = product.CategoryId;
-			_context.SaveChanges();
 
 			return RedirectToAction("Index");
 		}

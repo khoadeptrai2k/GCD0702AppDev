@@ -7,10 +7,11 @@ namespace GCD0702AppDev.Repositories.Interface
 	{
 		IEnumerable<Product> GetAllProducts();
 		bool CreateProduct(Product product);
-		bool EditProductById(int id, Product product);
+		bool EditProduct(Product product);
 
 		bool DeleteProductById(int id);
-
 		IEnumerable<Product> GetAllProductsWithSearchString(string searchString);
+
+		Product GetProductById(int id);
 	}
 }
