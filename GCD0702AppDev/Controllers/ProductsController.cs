@@ -9,13 +9,13 @@ namespace GCD0702AppDev.Controllers
 {
 	public class ProductsController : Controller
 	{
-		private ApplicationDbContext _context;
 		private IProductRepository _productRepos;
+		private ICategoryRepository _categoryRepos;
 
-		public ProductsController(IProductRepository productRepos)
+		public ProductsController(IProductRepository productRepos, ICategoryRepository categoryRepository)
 		{
-			_context = new ApplicationDbContext();
 			_productRepos = productRepos;
+			_categoryRepos = categoryRepository;
 		}
 
 		// GET: Products
@@ -36,7 +36,7 @@ namespace GCD0702AppDev.Controllers
 		{
 			var viewModel = new ProductCategoryViewModel
 			{
-				Categories = _context.Categories.ToList()
+				Categories = _categoryRepos.GetCategories()
 			};
 			return View(viewModel);
 		}
@@ -51,21 +51,13 @@ namespace GCD0702AppDev.Controllers
 				return View();
 			}
 
-			if (_context.Products.Any(p => p.Name.Contains(product.Name)))
+			if (_productRepos.CheckExistProductName(product.Name))
 			{
 				ModelState.AddModelError("Name", "Product Name Already Exists.");
 				return View();
 			}
 
-			var newProduct = new Product
-			{
-				Name = product.Name,
-				Price = product.Price,
-				CategoryId = product.CategoryId
-			};
-
-			_context.Products.Add(newProduct);
-			_context.SaveChanges();
+			_productRepos.CreateProduct(product);
 
 			return RedirectToAction("Index");
 		}
@@ -97,7 +89,7 @@ namespace GCD0702AppDev.Controllers
 			var viewModel = new ProductCategoryViewModel
 			{
 				Product = productInDb,
-				Categories = _context.Categories.ToList()
+				Categories = _categoryRepos.GetCategories()
 			};
 
 			return View(viewModel);

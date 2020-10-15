@@ -6,8 +6,10 @@ namespace GCD0702AppDev.Repositories.Interface
 	public interface IProductRepository
 	{
 		IEnumerable<Product> GetAllProducts();
-		bool CreateProduct(Product product);
+		void CreateProduct(Product product);
 		bool EditProduct(Product product);
+
+		bool CheckExistProductName(string name);
 
 		bool DeleteProductById(int id);
 		IEnumerable<Product> GetAllProductsWithSearchString(string searchString);

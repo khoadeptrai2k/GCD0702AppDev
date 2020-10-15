@@ -1,6 +1,5 @@
 ﻿using GCD0702AppDev.Models;
 using GCD0702AppDev.Repositories.Interface;
-using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -15,9 +14,24 @@ namespace GCD0702AppDev.Repositories
 		{
 			_context = new ApplicationDbContext();
 		}
-		public bool CreateProduct(Product product)
+
+		public bool CheckExistProductName(string name)
 		{
-			throw new NotImplementedException();
+			return _context.Products.Any(p => p.Name.Contains(name));
+		}
+
+		public void CreateProduct(Product product)
+		{
+			var newProduct = new Product
+			{
+				Name = product.Name,
+				CategoryId = product.CategoryId,
+				Price = product.Price
+			};
+
+			_context.Products.Add(newProduct);
+			_context.SaveChanges();
+
 		}
 
 		public bool DeleteProductById(int id)
